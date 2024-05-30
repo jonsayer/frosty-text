@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QWERTY Keyboard</title>
+    <style>
+        #input {
+            width: 100%;
+            font-size: 1.2em;
+            margin: 2em 0 2em 0; 
+        }
+        table#keyboard {
+            width: 80%;
+            text-align: center;
+            table-layout: fixed;
+        }
+        td {
+            padding: 5px;
+            border:1px dotted black;
+            background-color: tan;
+
+        }
+        table#keyboard td img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        #output {
+            background-color: #704214;
+            min-height: 200px;
+            margin: 0 0 2em 0; 
+        }
+
+        #output img { 
+            max-height: 40px;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Frosthaven Puzzle Book Alphabet Keyboard</h1>
+    <p><strong>WARNING!!!! MAJOR SPOILERS!!!! Stop immediately if you want to solve the Frosthaven Puzzle Book yourself!</strong></p>
+    <p>This is meant for folks who have already decoded the numbers and letters from the puzzle book and want to write in that language without 
+        spending way too much time writing it out. 
+    </p>
+    
+    <p>
+        <strong>Instructions: </strong> Type in the box below and your input will be transcribed to the 
+        symbols from Frosthaven's Puzzle Book. Alternately, you can click on the symbols below to type. Note they are arranged as on a 
+        QWERTY keyboard. Non alphanumeric characters such as punctuation must be typed into the input text box, as they do not have separate characters
+        in puzzle-book text. 
+    </p>
+    <input type="text" id="input" placeholder="Type here..." oninput="renderImages()">
+    <div id="output"></div>
+
+    <table id="keyboard">
+        <tr>
+            <td id="1"><img src="letters/1.png" alt="1" onclick="addToInput('1')"></td>
+            <td id="2"><img src="letters/2.png" alt="2" onclick="addToInput('2')"></td>
+            <td id="3"><img src="letters/3.png" alt="3" onclick="addToInput('3')"></td>
+            <td id="4"><img src="letters/4.png" alt="4" onclick="addToInput('4')"></td>
+            <td id="5"><img src="letters/5.png" alt="5" onclick="addToInput('5')"></td>
+            <td id="6"><img src="letters/6.png" alt="6" onclick="addToInput('6')"></td>
+            <td id="7"><img src="letters/7.png" alt="7" onclick="addToInput('7')"></td>
+            <td id="8"><img src="letters/8.png" alt="8" onclick="addToInput('8')"></td>
+            <td id="9"><img src="letters/9.png" alt="9" onclick="addToInput('9')"></td>
+            <td id="0"><img src="letters/0.png" alt="0" onclick="addToInput('0')"></td>
+        </tr>
+        <tr>
+            <td id="Q"><img src="letters/Q.png" alt="Q" onclick="addToInput('Q')"></td>
+            <td id="W"><img src="letters/W.png" alt="W" onclick="addToInput('W')"></td>
+            <td id="E"><img src="letters/E.png" alt="E" onclick="addToInput('E')"></td>
+            <td id="R"><img src="letters/R.png" alt="R" onclick="addToInput('R')"></td>
+            <td id="T"><img src="letters/T.png" alt="T" onclick="addToInput('T')"></td>
+            <td id="Y"><img src="letters/Y.png" alt="Y" onclick="addToInput('Y')"></td>
+            <td id="U"><img src="letters/U.png" alt="U" onclick="addToInput('U')"></td>
+            <td id="I"><img src="letters/I.png" alt="I" onclick="addToInput('I')"></td>
+            <td id="O"><img src="letters/O.png" alt="O" onclick="addToInput('O')"></td>
+            <td id="P"><img src="letters/P.png" alt="P" onclick="addToInput('P')"></td>
+        </tr>
+        <tr>
+            <td id="A"><img src="letters/A.png" alt="A" onclick="addToInput('A')"></td>
+            <td id="S"><img src="letters/S.png" alt="S" onclick="addToInput('S')"></td>
+            <td id="D"><img src="letters/D.png" alt="D" onclick="addToInput('D')"></td>
+            <td id="F"><img src="letters/F.png" alt="F" onclick="addToInput('F')"></td>
+            <td id="G"><img src="letters/G.png" alt="G" onclick="addToInput('G')"></td>
+            <td id="H"><img src="letters/H.png" alt="H" onclick="addToInput('H')"></td>
+            <td id="J"><img src="letters/J.png" alt="J" onclick="addToInput('J')"></td>
+            <td id="K"><img src="letters/K.png" alt="K" onclick="addToInput('K')"></td>
+            <td id="L"><img src="letters/L.png" alt="L" onclick="addToInput('L')"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td id="Z"><img src="letters/Z.png" alt="Z" onclick="addToInput('Z')"></td>
+            <td id="X"><img src="letters/X.png" alt="X" onclick="addToInput('X')"></td>
+            <td id="C"><img src="letters/C.png" alt="C" onclick="addToInput('C')"></td>
+            <td id="V"><img src="letters/V.png" alt="V" onclick="addToInput('V')"></td>
+            <td id="B"><img src="letters/B.png" alt="B" onclick="addToInput('B')"></td>
+            <td id="N"><img src="letters/N.png" alt="N" onclick="addToInput('N')"></td>
+            <td id="M"><img src="letters/M.png" alt="M" onclick="addToInput('M')"></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <script>
+        function renderImages() {
+            const input = document.getElementById('input');
+            input.value = input.value.toUpperCase(); // Force all letters to be upper case
+        
+            const output = document.getElementById('output');
+            output.innerHTML = ''; // Clear previous content
+            
+            for (let char of input.value) {
+                if (char.match(/[A-Z0-9]/)) {
+                    const img = document.createElement('img');
+                    img.src = `letters/${char}.png`;
+                    img.alt = char;
+                    output.appendChild(img);
+                } else {
+                    const span = document.createElement('span');
+                    span.textContent = char;
+                    span.style.fontSize = '30px';
+                    span.style.marginTop = "10px";
+                    span.style.verticalAlign = 'top'; // Align text to the middle
+                    output.appendChild(span);
+                }
+            }
+        }
+
+        function addToInput(char) {
+            const input = document.getElementById('input');
+            input.value += char;
+            renderImages();
+        }
+    </script>
+</body>
+</html>
