@@ -1,7 +1,7 @@
 # frosty-text
  Convert text to the mystery characters from Frosthaven's puzzle book. 
 
-##WARNING!!!! MAJOR SPOILERS!!!! 
+## WARNING!!!! MAJOR SPOILERS!!!! 
  Stop immediately if you want to solve the Frosthaven Puzzle Book yourself!
 
  This is meant for folks who have already decoded the numbers and letters from the puzzle book and want to write in that language without spending way too much time writing it out. 
