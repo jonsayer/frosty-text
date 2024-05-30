@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QWERTY Keyboard</title>
+    <title>Frosty Text!</title>
     <style>
         #input {
             width: 100%;
@@ -30,6 +30,7 @@
             background-color: #704214;
             min-height: 200px;
             margin: 0 0 2em 0; 
+            padding:0.5em;
         }
 
         #output img { 
@@ -55,7 +56,7 @@
     <div id="output"></div>
 
     <table id="keyboard">
-        <tr>
+        <!--<tr>
             <td id="1"><img src="letters/1.png" alt="1" onclick="addToInput('1')"></td>
             <td id="2"><img src="letters/2.png" alt="2" onclick="addToInput('2')"></td>
             <td id="3"><img src="letters/3.png" alt="3" onclick="addToInput('3')"></td>
@@ -66,7 +67,7 @@
             <td id="8"><img src="letters/8.png" alt="8" onclick="addToInput('8')"></td>
             <td id="9"><img src="letters/9.png" alt="9" onclick="addToInput('9')"></td>
             <td id="0"><img src="letters/0.png" alt="0" onclick="addToInput('0')"></td>
-        </tr>
+        </tr>-->
         <tr>
             <td id="Q"><img src="letters/Q.png" alt="Q" onclick="addToInput('Q')"></td>
             <td id="W"><img src="letters/W.png" alt="W" onclick="addToInput('W')"></td>
@@ -113,7 +114,7 @@
             output.innerHTML = ''; // Clear previous content
             
             for (let char of input.value) {
-                if (char.match(/[A-Z0-9]/)) {
+                if (char.match(/[A-Z]/)) { /* /[A-Z0-9]/ */
                     const img = document.createElement('img');
                     img.src = `letters/${char}.png`;
                     img.alt = char;
@@ -121,6 +122,9 @@
                 } else {
                     const span = document.createElement('span');
                     span.textContent = char;
+                    if(char == " "){
+                        span.textContent = "\u00A0\u00A0"
+                    }
                     span.style.fontSize = '30px';
                     span.style.marginTop = "10px";
                     span.style.verticalAlign = 'top'; // Align text to the middle
