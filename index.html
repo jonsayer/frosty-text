@@ -5,21 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Frosty Text!</title>
     <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+        h1, p {
+            width:80%;
+            margin-left:auto;
+            margin-right: auto;
+        }
         #input {
-            width: 100%;
+            width: 80%;
             font-size: 1.2em;
-            margin: 2em 0 2em 0; 
+            margin: 2em auto 2em auto; 
+            display: block;
+            min-height: 3em;
         }
         table#keyboard {
             width: 80%;
             text-align: center;
             table-layout: fixed;
+            margin: 0 auto;
         }
         td {
             padding: 5px;
-            border:1px dotted black;
+            border:1px solid black;
             background-color: tan;
 
+        }
+        td.number {
+            border-bottom: 0.5em solid black;
+        }
+        td.empty {
+            background-color: black;
         }
         table#keyboard td img {
             width: 100%;
@@ -27,10 +45,12 @@
             object-fit: contain;
         }
         #output {
-            background-color: #704214;
+            background-image: url("letters/old-parchment.jpg");
             min-height: 200px;
-            margin: 0 0 2em 0; 
+            width: 80%;
+            margin: 0 auto 2em auto; 
             padding:0.5em;
+            color:black;
         }
 
         #output img { 
@@ -52,22 +72,22 @@
         QWERTY keyboard. Non alphanumeric characters such as punctuation must be typed into the input text box, as they do not have separate characters
         in puzzle-book text. 
     </p>
-    <input type="text" id="input" placeholder="Type here..." oninput="renderImages()">
+    <textarea type="textarea" id="input" placeholder="Type here..." oninput="renderImages()"></textarea>
     <div id="output"></div>
 
     <table id="keyboard">
-        <!--<tr>
-            <td id="1"><img src="letters/1.png" alt="1" onclick="addToInput('1')"></td>
-            <td id="2"><img src="letters/2.png" alt="2" onclick="addToInput('2')"></td>
-            <td id="3"><img src="letters/3.png" alt="3" onclick="addToInput('3')"></td>
-            <td id="4"><img src="letters/4.png" alt="4" onclick="addToInput('4')"></td>
-            <td id="5"><img src="letters/5.png" alt="5" onclick="addToInput('5')"></td>
-            <td id="6"><img src="letters/6.png" alt="6" onclick="addToInput('6')"></td>
-            <td id="7"><img src="letters/7.png" alt="7" onclick="addToInput('7')"></td>
-            <td id="8"><img src="letters/8.png" alt="8" onclick="addToInput('8')"></td>
-            <td id="9"><img src="letters/9.png" alt="9" onclick="addToInput('9')"></td>
-            <td id="0"><img src="letters/0.png" alt="0" onclick="addToInput('0')"></td>
-        </tr>-->
+        <tr style="margin-bottom:0.5em">
+            <td class="number" id="1"><img src="letters/1.png" alt="1" onclick="addToInput('1')"></td>
+            <td class="number" id="2"><img src="letters/2.png" alt="2" onclick="addToInput('2')"></td>
+            <td class="number" id="3"><img src="letters/3.png" alt="3" onclick="addToInput('3')"></td>
+            <td class="number" id="4"><img src="letters/4.png" alt="4" onclick="addToInput('4')"></td>
+            <td class="number" id="5"><img src="letters/5.png" alt="5" onclick="addToInput('5')"></td>
+            <td class="number" id="6"><img src="letters/6.png" alt="6" onclick="addToInput('6')"></td>
+            <td class="number" id="7"><img src="letters/7.png" alt="7" onclick="addToInput('7')"></td>
+            <td class="number" id="8"><img src="letters/8.png" alt="8" onclick="addToInput('8')"></td>
+            <td class="number" id="9"><img src="letters/9.png" alt="9" onclick="addToInput('9')"></td>
+            <td class="number empty" ><!--<img src="letters/0.png" alt="0" onclick="addToInput('0')">--></td>
+        </tr>
         <tr>
             <td id="Q"><img src="letters/Q.png" alt="Q" onclick="addToInput('Q')"></td>
             <td id="W"><img src="letters/W.png" alt="W" onclick="addToInput('W')"></td>
@@ -90,10 +110,10 @@
             <td id="J"><img src="letters/J.png" alt="J" onclick="addToInput('J')"></td>
             <td id="K"><img src="letters/K.png" alt="K" onclick="addToInput('K')"></td>
             <td id="L"><img src="letters/L.png" alt="L" onclick="addToInput('L')"></td>
-            <td></td>
+            <td class="empty"></td>
         </tr>
         <tr>
-            <td></td>
+            <td class="empty"></td>
             <td id="Z"><img src="letters/Z.png" alt="Z" onclick="addToInput('Z')"></td>
             <td id="X"><img src="letters/X.png" alt="X" onclick="addToInput('X')"></td>
             <td id="C"><img src="letters/C.png" alt="C" onclick="addToInput('C')"></td>
@@ -101,36 +121,50 @@
             <td id="B"><img src="letters/B.png" alt="B" onclick="addToInput('B')"></td>
             <td id="N"><img src="letters/N.png" alt="N" onclick="addToInput('N')"></td>
             <td id="M"><img src="letters/M.png" alt="M" onclick="addToInput('M')"></td>
-            <td></td>
-            <td></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
         </tr>
     </table>
     <script>
         function renderImages() {
             const input = document.getElementById('input');
             input.value = input.value.toUpperCase(); // Force all letters to be upper case
-        
+
             const output = document.getElementById('output');
             output.innerHTML = ''; // Clear previous content
             
             for (let char of input.value) {
-                if (char.match(/[A-Z]/)) { /* /[A-Z0-9]/ */
+                if (char.match(/[A-Z0-9]/)) {
                     const img = document.createElement('img');
                     img.src = `letters/${char}.png`;
                     img.alt = char;
+                    img.style.verticalAlign = 'middle'; // Align images to the middle
                     output.appendChild(img);
+                } else if (char === ' ') {
+                    const span = document.createElement('span');
+                    span.style.fontSize = '40px';
+                    span.style.verticalAlign = 'middle'; // Align text to the middle
+                    span.style.marginTop = '-10px'; // Adjust this value to raise the text
+                    span.innerHTML = '&nbsp;&nbsp;';
+                    output.appendChild(span);
+                } else if (char === '\n') {
+                    output.appendChild(document.createElement('br')); // Add line break
                 } else {
                     const span = document.createElement('span');
                     span.textContent = char;
-                    if(char == " "){
-                        span.textContent = "\u00A0\u00A0"
-                    }
-                    span.style.fontSize = '30px';
-                    span.style.marginTop = "10px";
-                    span.style.verticalAlign = 'top'; // Align text to the middle
+                    span.style.fontSize = '40px';
+                    span.style.verticalAlign = 'middle'; // Align text to the middle
+                    span.style.marginTop = '-10px'; // Adjust this value to raise the text
                     output.appendChild(span);
                 }
             }
+            autoResizeTextarea();
+        }
+
+        function autoResizeTextarea() {
+            const textarea = document.getElementById('input');
+            textarea.style.height = 'auto';  // Reset the height
+            textarea.style.height = textarea.scrollHeight + 'px';  // Set the height to scrollHeight
         }
 
         function addToInput(char) {
